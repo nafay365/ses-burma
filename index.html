@@ -1,0 +1,642 @@
+<!doctype doctype>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SES BURMA</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+ </head>
+ <body>
+    <p><br></p>
+
+   <img src="logo.png" alt="logo" class="header-logo">
+   <div style="height: 2px; background: rgba(255,255,255,0.3); margin: 20px auto; max-width: 200px;"></div>
+  <div class="container">
+   <div class="header">
+    <div style="margin-bottom: 16px; color: black;">
+     <h3 style="margin: 0; font-size: 20px; font-weight: 500; opacity: 0.95;">Scholar Educational System</h3>
+     <p style="margin: 4px 0; font-size: 16px; opacity: 0.9;">Burma Town, Islamabad</p>
+    </div>
+    <div style="height: 2px; background: rgba(255,255,255,0.3); margin: 20px auto; max-width: 200px;"></div>
+    <h2 id="app-title" style="margin-bottom: 8px; color: black;">Chapter 11: Statistics</h2>
+    <p style="margin: 0; font-size: 16px; opacity: 0.85; font-weight: 500; color: black;">Mathematics</p>
+   </div>
+    <div style="text-align: center; padding: 20px;">
+    <a 
+        href="https://drive.google.com/drive/folders/1mqp5K2QQGpXklmDcVefCGzBeh3CsfNNU?usp=sharing" 
+       
+        style="
+            /* Button Style */
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4285F4; /* Google Blue */
+            color: white; 
+            border-radius: 5px; 
+            text-decoration: none; /* Removes underline */
+            font-weight: bold; 
+            font-family: sans-serif;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+        "
+    >
+        Dowload Notes
+    </a>
+</div>
+    <div style="width: 100%; text-align: center; padding-top: 60px;">
+        
+        <!-- BUTTON 1: Probability Link -->
+        <a href="https://ses-math-11-probabilty.vercel.app/" 
+        
+           style="
+                display: inline-block;
+                padding: 12px 25px;
+                background-color: #04AA6D; /* Green Button */
+                color: white; 
+                text-decoration: none; 
+                border-radius: 8px; 
+                font-size: 17px;
+                font-weight: bold;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+           ">
+            Probability
+        </a>
+
+        <!-- BUTTON 2: Main Page Link -->
+        <a href="https://ses-main.vercel.app/" 
+          
+           style="
+                display: inline-block;
+                padding: 12px 25px;
+                background-color: #007bff; /* Blue Button */
+                color: white; 
+                text-decoration: none; 
+                border-radius: 8px; 
+                font-size: 17px;
+                font-weight: bold;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                margin-left: 20px; /* Space between the two buttons */
+           ">
+          Main page
+        </a>
+
+    </div>
+    <div style="text-align: center; padding: 20px;">
+</div>
+   <div class="card">
+    <h2>Select Data Type</h2>
+    <div class="data-type-selector"><button class="data-type-btn active" onclick="selectDataType('discrete')">Discrete Data</button> <button class="data-type-btn" onclick="selectDataType('continuous')">Continuous Data</button> <button class="data-type-btn" onclick="selectDataType('ungrouped')">Ungrouped Data</button>
+    </div>
+   </div>
+   <div class="card" id="discrete-input">
+    <h2>Discrete Data Input</h2>
+    <div class="table-container">
+     <table id="discrete-table">
+      <thead>
+       <tr>
+        <th>Value (x)</th>
+        <th>Tally</th>
+        <th>Frequency (f)</th>
+        <th>Cumulative Frequency (c.f)</th>
+        <th>Action</th>
+       </tr>
+      </thead>
+      <tbody id="discrete-tbody">
+       <tr>
+        <td><input type="number" class="value-input" placeholder="0"></td>
+        <td class="tally-cell"></td>
+        <td><input type="number" class="freq-input" placeholder="0" min="0" oninput="updateTally(this)"></td>
+        <td class="cf-cell">0</td>
+        <td><button class="btn btn-danger" onclick="removeRow(this)">Remove</button></td>
+       </tr>
+      </tbody>
+     </table>
+    </div><button class="btn btn-secondary" onclick="addDiscreteRow()">Add Row</button> <button class="btn btn-primary" onclick="generateGraph()">Generate Graph</button>
+   </div>
+   <div class="card hidden" id="continuous-input">
+    <h2>Continuous Data Input</h2>
+    <div class="table-container">
+     <table id="continuous-table">
+      <thead>
+       <tr>
+        <th>Class Interval</th>
+        <th>Tally</th>
+        <th>Frequency (f)</th>
+        <th>Class Boundary</th>
+        <th>Midpoint</th>
+        <th>Height (f/width)</th>
+        <th>c.f</th>
+        <th>Action</th>
+       </tr>
+      </thead>
+      <tbody id="continuous-tbody">
+       <tr>
+        <td><input type="text" class="interval-input" placeholder="0-10"></td>
+        <td class="tally-cell"></td>
+        <td><input type="number" class="freq-input" placeholder="0" min="0" oninput="updateTally(this)"></td>
+        <td class="boundary-cell">-</td>
+        <td class="midpoint-cell">-</td>
+        <td class="height-cell">-</td>
+        <td class="cf-cell">0</td>
+        <td><button class="btn btn-danger" onclick="removeRow(this)">Remove</button></td>
+       </tr>
+      </tbody>
+     </table>
+    </div><button class="btn btn-secondary" onclick="addContinuousRow()">Add Row</button> <button class="btn btn-primary" onclick="generateGraph()">Generate Graph</button>
+   </div>
+   <div class="card hidden" id="ungrouped-input">
+    <h2>Ungrouped Data Input</h2>
+    <p style="color: #718096; margin-bottom: 16px;">Enter values separated by commas or spaces</p><textarea id="ungrouped-data" rows="5" style="width: 100%; padding: 12px; border: 1px solid #cbd5e0; border-radius: 8px; font-size: 14px; font-family: inherit; box-sizing: border-box;"></textarea> <button class="btn btn-primary" onclick="processUngroupedData()" style="margin-top: 16px;">Process &amp; Generate Graph</button>
+   </div>
+   <div class="card hidden" id="stats-card">
+    <h2>Statistical Summary</h2>
+    <div class="stats-grid" id="stats-container"></div>
+   </div>
+   <div class="card hidden" id="graph-card">
+    <h2>Visualization</h2>
+    <div class="chart-container">
+     <canvas id="myChart"></canvas>
+    </div><button class="download-btn" onclick="downloadChart()"> <span>📥</span> Download Graph </button>
+   </div>
+  </div>
+  <script>
+        let chart = null;
+        let currentDataType = 'discrete';
+        const defaultConfig = {
+            app_title: "Chapter 11: Statistics",
+            subtitle: "Create histograms and frequency polygons from your data"
+        };
+        
+        const config = window.elementSdk ? window.elementSdk.config : defaultConfig;
+        
+        async function onConfigChange(config) {
+            document.getElementById('app-title').textContent = config.app_title || defaultConfig.app_title;
+            document.getElementById('subtitle').textContent = config.subtitle || defaultConfig.subtitle;
+        }
+        
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            };
+        }
+        
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["app_title", config.app_title || defaultConfig.app_title],
+                ["subtitle", config.subtitle || defaultConfig.subtitle]
+            ]);
+        }
+        
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange,
+                mapToCapabilities,
+                mapToEditPanelValues
+            });
+        }
+        
+        onConfigChange(config);
+        
+        function selectDataType(type) {
+            currentDataType = type;
+            
+            document.querySelectorAll('.data-type-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.getElementById('discrete-input').classList.add('hidden');
+            document.getElementById('continuous-input').classList.add('hidden');
+            document.getElementById('ungrouped-input').classList.add('hidden');
+            document.getElementById('stats-card').classList.add('hidden');
+            document.getElementById('graph-card').classList.add('hidden');
+            
+            document.getElementById(type + '-input').classList.remove('hidden');
+        }
+        
+        function addDiscreteRow() {
+            const tbody = document.getElementById('discrete-tbody');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><input type="number" class="value-input" placeholder="0"></td>
+                <td class="tally-cell"></td>
+                <td><input type="number" class="freq-input" placeholder="0" min="0" oninput="updateTally(this)"></td>
+                <td class="cf-cell">0</td>
+                <td><button class="btn btn-danger" onclick="removeRow(this)">Remove</button></td>
+            `;
+            tbody.appendChild(row);
+        }
+        
+        function addContinuousRow() {
+            const tbody = document.getElementById('continuous-tbody');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><input type="text" class="interval-input" placeholder="0-10"></td>
+                <td class="tally-cell"></td>
+                <td><input type="number" class="freq-input" placeholder="0" min="0" oninput="updateTally(this)"></td>
+                <td class="boundary-cell">-</td>
+                <td class="midpoint-cell">-</td>
+                <td class="height-cell">-</td>
+                <td class="cf-cell">0</td>
+                <td><button class="btn btn-danger" onclick="removeRow(this)">Remove</button></td>
+            `;
+            tbody.appendChild(row);
+        }
+        
+        function removeRow(btn) {
+            btn.closest('tr').remove();
+        }
+        
+        function updateTally(input) {
+            const freq = parseInt(input.value) || 0;
+            const tallyCell = input.closest('tr').querySelector('.tally-cell');
+            tallyCell.innerHTML = generateTallyMarks(freq);
+        }
+        
+        function generateTallyMarks(count) {
+            if (count === 0) return '';
+            
+            let tally = '';
+            const fullGroups = Math.floor(count / 5);
+            const remainder = count % 5;
+            
+            // Full groups of 5 (with diagonal line through them)
+            for (let i = 0; i < fullGroups; i++) {
+                tally += '<span style="display: inline-block; margin-right: 8px; position: relative; font-size: 18px;">';
+                tally += '<span style="letter-spacing: 2px;">||||</span>';
+                tally += '<span style="position: absolute; left: -2px; top: 50%; transform: translateY(-50%) rotate(-70deg); color: #e53e3e;">/</span>';
+                tally += '</span>';
+            }
+            
+            // Remaining marks (without diagonal)
+            if (remainder > 0) {
+                tally += '<span style="letter-spacing: 2px; font-size: 18px;">' + '|'.repeat(remainder) + '</span>';
+            }
+            
+            return tally;
+        }
+        
+        function calculateCumulativeFrequency(frequencies) {
+            let cf = [];
+            let sum = 0;
+            for (let freq of frequencies) {
+                sum += freq;
+                cf.push(sum);
+            }
+            return cf;
+        }
+        
+        function generateGraph() {
+            if (currentDataType === 'discrete') {
+                generateDiscreteGraph();
+            } else if (currentDataType === 'continuous') {
+                generateContinuousGraph();
+            }
+        }
+        
+        function generateDiscreteGraph() {
+            const rows = document.querySelectorAll('#discrete-tbody tr');
+            let values = [];
+            let frequencies = [];
+            
+            rows.forEach(row => {
+                const value = parseFloat(row.querySelector('.value-input').value);
+                const freq = parseFloat(row.querySelector('.freq-input').value) || 0;
+                
+                if (!isNaN(value)) {
+                    values.push(value);
+                    frequencies.push(freq);
+                }
+            });
+            
+            if (values.length === 0) return;
+            
+            const cf = calculateCumulativeFrequency(frequencies);
+            rows.forEach((row, idx) => {
+                if (idx < cf.length) {
+                    row.querySelector('.cf-cell').textContent = cf[idx];
+                }
+            });
+            
+            const total = frequencies.reduce((a, b) => a + b, 0);
+            const mean = values.reduce((sum, val, idx) => sum + val * frequencies[idx], 0) / total;
+            
+            // Calculate mode
+            const maxFreq = Math.max(...frequencies);
+            const modeIndices = frequencies.map((f, i) => f === maxFreq ? i : -1).filter(i => i !== -1);
+            const modes = modeIndices.map(i => values[i]);
+            const modeStr = modes.join(', ');
+            
+            // Calculate median
+            let median;
+            const sortedData = [];
+            values.forEach((val, idx) => {
+                for (let i = 0; i < frequencies[idx]; i++) {
+                    sortedData.push(val);
+                }
+            });
+            sortedData.sort((a, b) => a - b);
+            if (sortedData.length % 2 === 0) {
+                median = (sortedData[sortedData.length/2 - 1] + sortedData[sortedData.length/2]) / 2;
+            } else {
+                median = sortedData[Math.floor(sortedData.length/2)];
+            }
+            
+            const sumCF = cf[cf.length - 1];
+            
+            displayStats({
+                'Total Frequency (Σf)': total,
+                'Mean (x̄)': mean.toFixed(2),
+                'Median': median.toFixed(2),
+                'Mode': modeStr,
+                'Sum of c.f': sumCF,
+                'Number of Values': values.length
+            });
+            
+            // Add zero-frequency classes at both ends for complete polygon
+            const extendedLabels = [...values];
+            const extendedData = [...frequencies];
+            const extendedPoints = [...values];
+            
+            if (values.length > 0) {
+                const step = values.length > 1 ? values[1] - values[0] : 1;
+                extendedLabels.unshift(values[0] - step);
+                extendedLabels.push(values[values.length - 1] + step);
+                extendedData.unshift(0);
+                extendedData.push(0);
+                extendedPoints.unshift(values[0] - step);
+                extendedPoints.push(values[values.length - 1] + step);
+            }
+            
+            createChart(extendedLabels, extendedData, 'Frequency Distribution', 'bar', extendedPoints, true);
+            
+            document.getElementById('stats-card').classList.remove('hidden');
+            document.getElementById('graph-card').classList.remove('hidden');
+        }
+        
+        function generateContinuousGraph() {
+            const rows = document.querySelectorAll('#continuous-tbody tr');
+            let intervals = [];
+            let frequencies = [];
+            let midpoints = [];
+            let boundaries = [];
+            let heights = [];
+            
+            rows.forEach(row => {
+                const intervalInput = row.querySelector('.interval-input').value;
+                const freq = parseFloat(row.querySelector('.freq-input').value) || 0;
+                
+                if (intervalInput) {
+                    const parts = intervalInput.split('-').map(x => parseFloat(x.trim()));
+                    if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+                        const lower = parts[0];
+                        const upper = parts[1];
+                        const midpoint = (lower + upper) / 2;
+                        const boundary = `${lower - 0.5} - ${upper + 0.5}`;
+                        const width = upper - lower;
+                        const height = width > 0 ? freq / width : 0;
+                        
+                        intervals.push(intervalInput);
+                        frequencies.push(freq);
+                        midpoints.push(midpoint);
+                        boundaries.push(boundary);
+                        heights.push(height);
+                        
+                        row.querySelector('.boundary-cell').textContent = boundary;
+                        row.querySelector('.midpoint-cell').textContent = midpoint.toFixed(2);
+                        row.querySelector('.height-cell').textContent = height.toFixed(2);
+                    }
+                }
+            });
+            
+            if (intervals.length === 0) return;
+            
+            const cf = calculateCumulativeFrequency(frequencies);
+            rows.forEach((row, idx) => {
+                if (idx < cf.length) {
+                    row.querySelector('.cf-cell').textContent = cf[idx];
+                }
+            });
+            
+            const total = frequencies.reduce((a, b) => a + b, 0);
+            const mean = midpoints.reduce((sum, val, idx) => sum + val * frequencies[idx], 0) / total;
+            
+            // Calculate mode (class with highest frequency)
+            const maxFreq = Math.max(...frequencies);
+            const modeIndex = frequencies.indexOf(maxFreq);
+            const modeClass = intervals[modeIndex];
+            
+            // Calculate median class
+            const n = total;
+            const medianPosition = n / 2;
+            let medianClass = '';
+            for (let i = 0; i < cf.length; i++) {
+                if (cf[i] >= medianPosition) {
+                    medianClass = intervals[i];
+                    break;
+                }
+            }
+            
+            const sumCF = cf[cf.length - 1];
+            
+            displayStats({
+                'Total Frequency (Σf)': total,
+                'Mean (x̄)': mean.toFixed(2),
+                'Median Class': medianClass,
+                'Mode Class': modeClass,
+                'Sum of c.f': sumCF,
+                'Number of Classes': intervals.length
+            });
+            
+            // Add zero-frequency classes at both ends for complete polygon
+            const extendedLabels = [...intervals];
+            const extendedData = [...frequencies];
+            const extendedPoints = [...midpoints];
+            
+            if (midpoints.length > 0) {
+                const step = midpoints.length > 1 ? midpoints[1] - midpoints[0] : 10;
+                const lowerInterval = intervals[0].split('-')[0];
+                const upperInterval = intervals[intervals.length - 1].split('-')[1];
+                
+                extendedLabels.unshift(`${parseFloat(lowerInterval) - step}-${lowerInterval}`);
+                extendedLabels.push(`${upperInterval}-${parseFloat(upperInterval) + step}`);
+                extendedData.unshift(0);
+                extendedData.push(0);
+                extendedPoints.unshift(midpoints[0] - step);
+                extendedPoints.push(midpoints[midpoints.length - 1] + step);
+            }
+            
+            createChart(extendedLabels, extendedData, 'Frequency Distribution (Histogram)', 'bar', extendedPoints, true);
+            
+            document.getElementById('stats-card').classList.remove('hidden');
+            document.getElementById('graph-card').classList.remove('hidden');
+        }
+        
+        function processUngroupedData() {
+            const input = document.getElementById('ungrouped-data').value;
+            const data = input.split(/[\s,]+/).map(x => parseFloat(x.trim())).filter(x => !isNaN(x));
+            
+            if (data.length === 0) return;
+            
+            const freqMap = {};
+            data.forEach(val => {
+                freqMap[val] = (freqMap[val] || 0) + 1;
+            });
+            
+            const values = Object.keys(freqMap).map(x => parseFloat(x)).sort((a, b) => a - b);
+            const frequencies = values.map(v => freqMap[v]);
+            
+            const total = data.length;
+            const mean = data.reduce((a, b) => a + b, 0) / total;
+            const sorted = [...data].sort((a, b) => a - b);
+            const median = sorted.length % 2 === 0 
+                ? (sorted[sorted.length/2 - 1] + sorted[sorted.length/2]) / 2 
+                : sorted[Math.floor(sorted.length/2)];
+            
+            displayStats({
+                'Total Values': total,
+                'Mean': mean.toFixed(2),
+                'Median': median.toFixed(2),
+                'Unique Values': values.length
+            });
+            
+            // Add zero-frequency classes at both ends for complete polygon
+            const extendedLabels = [...values];
+            const extendedData = [...frequencies];
+            const extendedPoints = [...values];
+            
+            if (values.length > 0) {
+                const step = values.length > 1 ? values[1] - values[0] : 1;
+                extendedLabels.unshift(values[0] - step);
+                extendedLabels.push(values[values.length - 1] + step);
+                extendedData.unshift(0);
+                extendedData.push(0);
+                extendedPoints.unshift(values[0] - step);
+                extendedPoints.push(values[values.length - 1] + step);
+            }
+            
+            createChart(extendedLabels, extendedData, 'Frequency Distribution', 'bar', extendedPoints, true);
+            
+            document.getElementById('stats-card').classList.remove('hidden');
+            document.getElementById('graph-card').classList.remove('hidden');
+        }
+        
+        function displayStats(stats) {
+            const container = document.getElementById('stats-container');
+            container.innerHTML = '';
+            
+            for (let [label, value] of Object.entries(stats)) {
+                const statBox = document.createElement('div');
+                statBox.className = 'stat-box';
+                statBox.innerHTML = `
+                    <div class="stat-label">${label}</div>
+                    <div class="stat-value">${value}</div>
+                `;
+                container.appendChild(statBox);
+            }
+        }
+        
+        function createChart(labels, data, title, type = 'bar', midpoints = null, showPolygon = false) {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            
+            if (chart) {
+                chart.destroy();
+            }
+            
+            const datasets = [{
+                label: 'Frequency (Histogram)',
+                data: data,
+                backgroundColor: 'rgba(102, 126, 234, 0.7)',
+                borderColor: 'rgba(102, 126, 234, 1)',
+                borderWidth: 2
+            }];
+            
+            if (type === 'bar' && showPolygon) {
+                datasets.push({
+                    label: 'Frequency Polygon',
+                    data: data,
+                    type: 'line',
+                    borderColor: 'rgba(118, 75, 162, 1)',
+                    backgroundColor: 'rgba(118, 75, 162, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: false,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointBackgroundColor: 'rgba(118, 75, 162, 1)',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                });
+            }
+            
+            chart = new Chart(ctx, {
+                type: type,
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: title,
+                            font: {
+                                size: 18,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            display: datasets.length > 1
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Frequency'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: currentDataType === 'continuous' ? 'Class Intervals' : 'Values'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function downloadChart() {
+            if (!chart) return;
+            
+            const link = document.createElement('a');
+            link.download = 'statistical-graph.png';
+            link.href = chart.toBase64Image();
+            link.click();
+        }
+    </script>
+
+   <p style="
+    text-align: center; 
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(0, 0, 0); 
+    font-size: 15px;
+">
+   <br>
+   <br><br><br><br> Contact:Owner@alpha-mind.online <br>whatsapp: +92 3464448367
+</p>
+<p style="font-size: 12px; text-align: right;">©Abdul Nafay</p>
+
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a16d69b074c70ec',t:'MTc2MzYzMDA3OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
